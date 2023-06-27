@@ -1,4 +1,4 @@
-package org.fastcampus.model.player;
+package org.fastcampus.domain.player;
 
 import lombok.Builder;
 import lombok.Getter;
