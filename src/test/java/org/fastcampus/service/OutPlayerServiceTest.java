@@ -12,8 +12,8 @@ class OutPlayerServiceTest {
         // given
         OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO =
                 OutPlayerRequestDTO.OutPlayerAddReqDTO.builder()
-                        .playerId(27)
-                        .outReason(OutReason.INJURY)
+                        .playerId(5)
+                        .outReason(OutReason.CONTRACT_EXPIRATION)
                         .build();
 
         // when

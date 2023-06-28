@@ -22,7 +22,7 @@ public class OutPlayerDao {
             String insertQuery = "INSERT INTO out_player_tb VALUES (null, ?, ?, now())";
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
                 statement.setInt(1, outPlayer.getPlayerId());
-                statement.setString(2, outPlayer.getReason());
+                statement.setInt(2, outPlayer.getReason());
                 result=statement.executeUpdate();
             }
 
