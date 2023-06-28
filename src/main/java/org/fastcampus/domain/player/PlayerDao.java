@@ -20,7 +20,7 @@ public class PlayerDao {
         return playerDao;
     }
 
-    public int insertPlayer(Player player){
+    public int insert(Player player){
         int result;
         try{
             // 1. 포지션 제약조건 예외처리

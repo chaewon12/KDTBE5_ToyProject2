@@ -10,8 +10,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class PlayerDaoTest {
     Connection connection = DBConnection.getInstance();
     Savepoint savepoint;
@@ -39,7 +37,7 @@ class PlayerDaoTest {
                 .build();
 
         // when
-        int result = playerDao.insertPlayer(player);
+        int result = playerDao.insert(player);
 
         // then
         Assertions.assertEquals(result,1);
@@ -54,7 +52,7 @@ class PlayerDaoTest {
                 .build();
 
         // when
-        int result = playerDao.insertPlayer(player);
+        int result = playerDao.insert(player);
 
         // then
         Assertions.assertEquals(result,0);
