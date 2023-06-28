@@ -51,4 +51,17 @@ public class PlayerDao {
         }
         return result;
     }
+
+    public int updateOutById(int id){
+        int result;
+        String query = "UPDATE player_tb SET team_id = null  WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            result = statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+        return result;
+    }
 }
