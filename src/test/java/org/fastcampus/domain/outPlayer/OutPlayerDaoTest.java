@@ -32,7 +32,7 @@ class OutPlayerDaoTest {
         // given
         OutPlayer outPlayer = OutPlayer.builder()
                                         .playerId(27)
-                                        .reason("부상")
+                                        .reason(1)
                                         .build();
 
         // when

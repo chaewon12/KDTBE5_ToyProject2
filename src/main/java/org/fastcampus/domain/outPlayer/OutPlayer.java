@@ -10,11 +10,11 @@ import java.sql.Timestamp;
 public class OutPlayer {
     private Integer id;
     private Integer playerId;
-    private String reason;
+    private Integer reason;
     private Timestamp createdAt;
 
     @Builder
-    public OutPlayer(Integer id, Integer playerId, String reason, Timestamp createdAt) {
+    public OutPlayer(Integer id, Integer playerId, Integer reason, Timestamp createdAt) {
         this.id = id;
         this.playerId = playerId;
         this.reason = reason;
@@ -24,7 +24,7 @@ public class OutPlayer {
     public static OutPlayer fromReqDTO(OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
         return OutPlayer.builder()
                 .playerId(outPlayerAddReqDTO.getPlayerId())
-                .reason(outPlayerAddReqDTO.getOutReason().getDescrition())
+                .reason(outPlayerAddReqDTO.getOutReason().getCode())
                 .build();
     }
 }
