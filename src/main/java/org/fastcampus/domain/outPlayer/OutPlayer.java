@@ -2,6 +2,7 @@ package org.fastcampus.domain.outPlayer;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.fastcampus.dto.outPlayer.OutPlayerRequestDTO;
 
 import java.sql.Timestamp;
 
@@ -18,5 +19,12 @@ public class OutPlayer {
         this.playerId = playerId;
         this.reason = reason;
         this.createdAt = createdAt;
+    }
+
+    public static OutPlayer fromReqDTO(OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
+        return OutPlayer.builder()
+                .playerId(outPlayerAddReqDTO.getPlayerId())
+                .reason(outPlayerAddReqDTO.getOutReason().getDescrition())
+                .build();
     }
 }
