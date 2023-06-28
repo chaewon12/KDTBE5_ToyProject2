@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.util.List;
 
 class PlayerDaoTest {
     Connection connection = DBConnection.getInstance();
@@ -40,7 +41,7 @@ class PlayerDaoTest {
         int result = playerDao.insert(player);
 
         // then
-        Assertions.assertEquals(result,1);
+        Assertions.assertEquals(1,result);
     }
     @Test
     void insertPlayer_fail_test() {
@@ -55,6 +56,18 @@ class PlayerDaoTest {
         int result = playerDao.insert(player);
 
         // then
-        Assertions.assertEquals(result,0);
+        Assertions.assertEquals(0,result);
+    }
+
+    @Test
+    void findByTeamId() {
+        // given
+        int teamId = 1;
+
+        // when
+        List<Player> playerList = playerDao.findByTeamId(teamId);
+
+        // then
+        Assertions.assertEquals(8,playerList.size());
     }
 }

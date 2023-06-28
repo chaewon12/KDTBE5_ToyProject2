@@ -15,10 +15,12 @@ public class Player {
     private Timestamp createdAt;
 
     @Builder
-    public Player(Integer teamId, String name, String position) {
+    public Player(Integer id, Integer teamId, String name, String position, Timestamp createdAt) {
+        this.id=id;
         this.teamId = teamId;
         this.name = name;
         this.position = position;
+        this.createdAt = createdAt;
     }
 
     public static Player fromReqDTO(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO){
