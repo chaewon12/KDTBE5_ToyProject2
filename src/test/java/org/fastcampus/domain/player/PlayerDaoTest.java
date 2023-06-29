@@ -93,4 +93,27 @@ class PlayerDaoTest {
         // then
         Assertions.assertEquals(0,result);
     }
+
+    @Test
+    void updateOutById_success_test() {
+        // given
+        int playerId = 27;
+
+        // when
+        int result = playerDao.updateOutById(playerId);
+
+        // then
+        Assertions.assertEquals(1,result);
+    }
+    @Test
+    void updateOutById_fail_test() {
+        // given
+        int playerId = 30;
+
+        // when
+        int result = playerDao.updateOutById(playerId);
+
+        // then
+        Assertions.assertEquals(0,result);
+    }
 }
