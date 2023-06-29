@@ -4,8 +4,12 @@ import org.fastcampus.db.DBConnection;
 import org.fastcampus.domain.player.Player;
 import org.fastcampus.domain.player.PlayerDao;
 import org.fastcampus.dto.player.PlayerRequestDTO;
+import org.fastcampus.dto.player.PlayerResponseDTO;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PlayerService {
     Connection connection = DBConnection.getInstance();
@@ -16,5 +20,16 @@ public class PlayerService {
 
         int result = playerDao.insert(player);
         return result == 1 ? "선수등록 성공" : "선수등록 실패";
+    }
+
+    public List<PlayerResponseDTO.PlayerListRespDTO> playerList(int teamId){
+        List<Player> playerList = playerDao.findByTeamId(teamId);
+
+        List<PlayerResponseDTO.PlayerListRespDTO> playerListRespDTOList = new ArrayList<>();
+        for(Player player:playerList) {
+            PlayerResponseDTO.PlayerListRespDTO playerRespDTO = PlayerResponseDTO.PlayerListRespDTO.fromEntity(player);
+            playerListRespDTOList.add(playerRespDTO);
+        }
+        return playerListRespDTOList;
     }
 }

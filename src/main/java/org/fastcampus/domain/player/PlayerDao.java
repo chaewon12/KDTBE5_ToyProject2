@@ -2,10 +2,9 @@ package org.fastcampus.domain.player;
 
 import org.fastcampus.exception.UniqueConstraintException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerDao {
     private static PlayerDao playerDao;
@@ -50,5 +49,41 @@ public class PlayerDao {
             return 0;
         }
         return result;
+    }
+
+    public List<Player> findByTeamId(int teamId){
+        List<Player> playerList = new ArrayList<>();
+        try{
+            String checkUNQuery = "SELECT * FROM player_tb WHERE team_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(checkUNQuery);) {
+                statement.setInt(1, teamId);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Player player = fromResultSet(resultSet);
+                        playerList.add(player);
+                    }
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return playerList;
+    }
+
+    private Player fromResultSet(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        int teamId = resultSet.getInt("team_id");
+        String name = resultSet.getString("name");
+        String position = resultSet.getString("position");
+        Timestamp createdAt = resultSet.getTimestamp("created_at");
+
+        return Player.builder()
+                .id(id)
+                .teamId(teamId)
+                .name(name)
+                .position(position)
+                .createdAt(createdAt)
+                .build();
     }
 }

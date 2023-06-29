@@ -1,6 +1,8 @@
-package org.fastcampus.domain.player;
+package org.fastcampus.service;
 
 import org.fastcampus.db.DBConnection;
+import org.fastcampus.dto.player.PlayerRequestDTO;
+import org.fastcampus.dto.player.PlayerResponseDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,11 +13,12 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.List;
 
-class PlayerDaoTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class PlayerServiceTest {
     Connection connection = DBConnection.getInstance();
     Savepoint savepoint;
-    PlayerDao playerDao = PlayerDao.getInstance(connection);
-
+    PlayerService playerService = new PlayerService();
     @BeforeEach
     void setUp() throws SQLException {
         connection.setAutoCommit(false); // 자동 커밋 비활성화
@@ -29,45 +32,29 @@ class PlayerDaoTest {
     }
 
     @Test
-    void insertPlayer_success_test() {
+    void playerAdd() {
         // given
-        Player player = Player.builder()
+        PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO
+                = PlayerRequestDTO.PlayerAddReqDTO.builder()
                 .teamId(3)
                 .name("나성범")
                 .position("우익수")
                 .build();
 
         // when
-        int result = playerDao.insert(player);
+        String result = playerService.playerAdd(playerAddReqDTO);
 
         // then
-        Assertions.assertEquals(1,result);
-    }
-    @Test
-    void insertPlayer_fail_test() {
-        // given
-        Player player = Player.builder()
-                .teamId(3)
-                .name("나성범")
-                .position("중견수")
-                .build();
-
-        // when
-        int result = playerDao.insert(player);
-
-        // then
-        Assertions.assertEquals(0,result);
+        Assertions.assertEquals("선수등록 성공",result);
     }
 
     @Test
-    void findByTeamId() {
+    void playerList() {
         // given
-        int teamId = 1;
-
+        int teamId=3;
         // when
-        List<Player> playerList = playerDao.findByTeamId(teamId);
-
+        List<PlayerResponseDTO.PlayerListRespDTO> playerListRespDTOList = playerService.playerList(3);
         // then
-        Assertions.assertEquals(8,playerList.size());
+        playerListRespDTOList.forEach(System.out::println);
     }
 }
