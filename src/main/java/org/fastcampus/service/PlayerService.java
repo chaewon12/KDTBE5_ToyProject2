@@ -8,22 +8,21 @@ import org.fastcampus.dto.player.PlayerResponseDTO;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlayerService {
     Connection connection = DBConnection.getInstance();
     PlayerDao playerDao = PlayerDao.getInstance(connection);
 
-    public String playerAdd(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO) {
+    public String addPlayer(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO) {
         Player player = Player.fromReqDTO(playerAddReqDTO);
 
         int result = playerDao.insert(player);
         return result == 1 ? "선수등록 성공" : "선수등록 실패";
     }
 
-    public List<PlayerResponseDTO.PlayerListRespDTO> playerList(int teamId){
-        List<Player> playerList = playerDao.findByTeamId(teamId);
+    public List<PlayerResponseDTO.PlayerListRespDTO> getPlayerList(int teamId){
+        List<Player> playerList = playerDao.selectByTeamId(teamId);
 
         List<PlayerResponseDTO.PlayerListRespDTO> playerListRespDTOList = new ArrayList<>();
         for(Player player:playerList) {
