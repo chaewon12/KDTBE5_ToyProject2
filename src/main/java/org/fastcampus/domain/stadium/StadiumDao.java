@@ -48,7 +48,7 @@ public class StadiumDao {
                 stadiumList.add(new Stadium(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getTimestamp("account_created_at")));
+                        resultSet.getTimestamp("created_at")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

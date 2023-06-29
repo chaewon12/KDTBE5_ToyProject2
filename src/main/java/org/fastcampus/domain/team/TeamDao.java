@@ -50,9 +50,9 @@ public class TeamDao {
             while (resultSet.next()) {
                 teamList.add(new Team(
                         resultSet.getInt("id"),
-                        resultSet.getInt("stadiumId"),
+                        resultSet.getInt("stadium_id"),
                         resultSet.getString("name"),
-                        resultSet.getTimestamp("account_created_at")));
+                        resultSet.getTimestamp("created_at")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
