@@ -1,5 +1,7 @@
 package org.fastcampus.domain.stadium;
 
+import org.fastcampus.domain.player.PlayerDao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,10 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StadiumDao {
+    private static StadiumDao stadiumDao;
     private Connection connection;
 
     public StadiumDao(Connection connection) {
         this.connection = connection;
+    }
+
+    public static StadiumDao getInstance(Connection connection){
+        if(stadiumDao==null){
+            stadiumDao = new StadiumDao(connection);
+        }
+        return stadiumDao;
     }
 
     //야구장 등록
