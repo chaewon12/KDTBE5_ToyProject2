@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerServiceTest {
     Connection connection = DBConnection.getInstance();
     Savepoint savepoint;
-    PlayerService playerService = new PlayerService();
+    //PlayerService playerService = new PlayerService();
     @BeforeEach
     void setUp() throws SQLException {
         connection.setAutoCommit(false); // 자동 커밋 비활성화

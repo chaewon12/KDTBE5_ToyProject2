@@ -15,6 +15,9 @@ public class PlayerService {
     Connection connection = DBConnection.getInstance();
     PlayerDao playerDao = PlayerDao.getInstance(connection);
 
+    public PlayerService(PlayerDao playerDao) {
+    }
+
     public String playerAdd(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO) {
         Player player = Player.fromReqDTO(playerAddReqDTO);
 
