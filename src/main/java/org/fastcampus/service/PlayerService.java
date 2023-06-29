@@ -11,9 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerService {
-    Connection connection = DBConnection.getInstance();
-    PlayerDao playerDao = PlayerDao.getInstance(connection);
-
+    private static PlayerService playerService;
+    private PlayerDao playerDao;
+    private PlayerService(Connection connection) {
+        this.playerDao = PlayerDao.getInstance(connection);
+    }
+    public static PlayerService getInstance(Connection connection){
+        if(playerService==null){
+            playerService= new PlayerService(connection);
+        }
+        return playerService;
+    }
     public String addPlayer(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO) {
         Player player = Player.fromReqDTO(playerAddReqDTO);
 
