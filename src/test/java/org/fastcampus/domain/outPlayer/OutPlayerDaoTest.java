@@ -48,7 +48,7 @@ class OutPlayerDaoTest {
     void getOutBoard_test() {
         // given
         // when
-        List<OutPlayerRespDTO.OutBoardRespDTO> outBoard = OutplayerDao.getOutBoard();
+        List<OutPlayerRespDTO.OutBoardRespDTO> outBoard = OutplayerDao.selectPlayerJoinOut();
         // then
         outBoard.forEach(System.out::println);
     }

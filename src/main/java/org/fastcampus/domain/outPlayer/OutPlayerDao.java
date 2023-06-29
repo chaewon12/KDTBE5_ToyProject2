@@ -38,7 +38,7 @@ public class OutPlayerDao {
         return result;
     }
 
-    public List<OutPlayerRespDTO.OutBoardRespDTO> getOutBoard(){
+    public List<OutPlayerRespDTO.OutBoardRespDTO> selectPlayerJoinOut(){
         List<OutPlayerRespDTO.OutBoardRespDTO> outBoard = new ArrayList<>();
         try{
             String query = "SELECT p.id, p.name, p.position, ifnull(o.reason,0) as reason, o.created_at\n" +
