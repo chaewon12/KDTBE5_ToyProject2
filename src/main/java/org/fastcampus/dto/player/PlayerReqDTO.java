@@ -2,7 +2,7 @@ package org.fastcampus.dto.player;
 
 import lombok.*;
 
-public class PlayerRequestDTO {
+public class PlayerReqDTO {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor

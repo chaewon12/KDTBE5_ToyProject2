@@ -1,8 +1,8 @@
 package org.fastcampus.service;
 
 import org.fastcampus.db.DBConnection;
-import org.fastcampus.dto.player.PlayerRequestDTO;
-import org.fastcampus.dto.player.PlayerResponseDTO;
+import org.fastcampus.dto.player.PlayerReqDTO;
+import org.fastcampus.dto.player.PlayerRespDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,8 +34,8 @@ class PlayerServiceTest {
     @Test
     void playerAdd() {
         // given
-        PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO
-                = PlayerRequestDTO.PlayerAddReqDTO.builder()
+        PlayerReqDTO.PlayerAddReqDTO playerAddReqDTO
+                = PlayerReqDTO.PlayerAddReqDTO.builder()
                 .teamId(3)
                 .name("나성범")
                 .position("우익수")
@@ -53,7 +53,7 @@ class PlayerServiceTest {
         // given
         int teamId=3;
         // when
-        List<PlayerResponseDTO.PlayerListRespDTO> playerListRespDTOList = playerService.getPlayerList(3);
+        List<PlayerRespDTO.PlayerListRespDTO> playerListRespDTOList = playerService.getPlayerList(3);
         // then
         playerListRespDTOList.forEach(System.out::println);
     }
