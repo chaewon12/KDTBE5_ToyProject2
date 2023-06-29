@@ -16,6 +16,7 @@ public class OutPlayerDao {
         }
         return outPlayerDao;
     }
+
     public int insert(OutPlayer outPlayer){
         int result;
         try{

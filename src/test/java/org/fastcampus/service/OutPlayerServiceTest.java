@@ -39,7 +39,7 @@ class OutPlayerServiceTest {
                         .build();
 
         // when
-        String result = outPlayerService.outPlayerAdd(outPlayerAddReqDTO);
+        String result = outPlayerService.addOutPlayer(outPlayerAddReqDTO);
 
         // then
         Assertions.assertEquals("선수 퇴출 등록 성공",result);
@@ -56,7 +56,7 @@ class OutPlayerServiceTest {
                         .build();
 
         // when
-        String result = outPlayerService.outPlayerAdd(outPlayerAddReqDTO);
+        String result = outPlayerService.addOutPlayer(outPlayerAddReqDTO);
 
         // then
         Assertions.assertEquals("선수 퇴출 등록 실패",result);

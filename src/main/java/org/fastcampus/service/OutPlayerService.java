@@ -27,7 +27,7 @@ public class OutPlayerService {
     }
 
     //@Todo 정의되지 않은 이유 입력 시 예외처리(위치 정해야함. 아마 main에서?)
-    public String outPlayerAdd(OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
+    public String addOutPlayer(OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
         int resultInsert = 0;
         int resultUpdate = 0;
 
