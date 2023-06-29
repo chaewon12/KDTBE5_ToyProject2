@@ -1,6 +1,5 @@
 package org.fastcampus.domain.outPlayer;
 
-import org.fastcampus.domain.player.Player;
 import org.fastcampus.dto.outPlayer.OutPlayerRespDTO;
 import org.fastcampus.util.type.OutReason;
 
@@ -14,6 +13,7 @@ public class OutPlayerDao {
     private OutPlayerDao(Connection connection) {
         this.connection = connection;
     }
+
     public static OutPlayerDao getInstance(Connection connection){
         if(outPlayerDao==null){
             outPlayerDao= new OutPlayerDao(connection);
@@ -39,23 +39,24 @@ public class OutPlayerDao {
     }
 
     public List<OutPlayerRespDTO.OutBoardRespDTO> getOutBoard(){
-        List<OutPlayerRespDTO.OutBoardRespDTO> outBoardRespDTOList = new ArrayList<>();
+        List<OutPlayerRespDTO.OutBoardRespDTO> outBoard = new ArrayList<>();
         try{
             String query = "SELECT p.id, p.name, p.position, ifnull(o.reason,0) as reason, o.created_at\n" +
                     "FROM  player_tb AS p LEFT OUTER JOIN out_player_tb AS o \n" +
                     "ON o.player_id = p.id;";
+
             try (PreparedStatement statement = connection.prepareStatement(query);) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         OutPlayerRespDTO.OutBoardRespDTO outBoardRespDTO = toOutBoardRespDTO(resultSet);
-                        outBoardRespDTOList.add(outBoardRespDTO);
+                        outBoard.add(outBoardRespDTO);
                     }
                 }
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return outBoardRespDTOList;
+        return outBoard;
     }
 
     private OutPlayerRespDTO.OutBoardRespDTO toOutBoardRespDTO(ResultSet resultSet) throws SQLException {

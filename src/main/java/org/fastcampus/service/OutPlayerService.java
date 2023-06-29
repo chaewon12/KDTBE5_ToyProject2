@@ -3,7 +3,7 @@ package org.fastcampus.service;
 import org.fastcampus.domain.outPlayer.OutPlayer;
 import org.fastcampus.domain.outPlayer.OutPlayerDao;
 import org.fastcampus.domain.player.PlayerDao;
-import org.fastcampus.dto.outPlayer.OutPlayerRequestDTO;
+import org.fastcampus.dto.outPlayer.OutPlayerReqDTO;
 
 import java.sql.Connection;
 
@@ -26,8 +26,8 @@ public class OutPlayerService {
         return outPlayerService;
     }
 
-    //@Todo 정의되지 않은 이유 입력 시 예외처리(위치 정해야함. 아마 main에서?)
-    public String addOutPlayer(OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
+    //@Todo 정의되지 않은 이유 입력 시 예외처리(콘솔에서 OutPlayerAddReqDTO 객체 생성시)
+    public String addOutPlayer(OutPlayerReqDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
         int resultInsert = 0;
         int resultUpdate = 0;
 
