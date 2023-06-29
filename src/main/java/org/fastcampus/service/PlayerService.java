@@ -1,5 +1,6 @@
 package org.fastcampus.service;
 
+import org.fastcampus.db.DBConnection;
 import org.fastcampus.domain.player.Player;
 import org.fastcampus.domain.player.PlayerDao;
 import org.fastcampus.dto.player.PlayerRequestDTO;
@@ -21,7 +22,6 @@ public class PlayerService {
         }
         return playerService;
     }
-
     public String addPlayer(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO) {
         Player player = Player.fromReqDTO(playerAddReqDTO);
 
