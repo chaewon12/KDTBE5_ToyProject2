@@ -12,8 +12,8 @@ import java.sql.Savepoint;
 
 class OutPlayerDaoTest {
     Connection connection = DBConnection.getInstance();
-    Savepoint savepoint;
     OutPlayerDao OutplayerDao = OutPlayerDao.getInstance(connection);
+    Savepoint savepoint;
 
     @BeforeEach
     void setUp() throws SQLException {
