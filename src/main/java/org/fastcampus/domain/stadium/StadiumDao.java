@@ -15,14 +15,17 @@ public class StadiumDao {
     }
 
     //야구장 등록
-    public void registerStadium(String name) throws SQLException {
+    public int registerStadium(String name) throws SQLException {
+        int result = 0;
         String query = "insert into stadium_tb values(?, ?, now())";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
-            int result = statement.executeUpdate();
+            result = statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return 0;
         }
+        return result;
     }
 
     //전체 야구장 목록
@@ -38,7 +41,7 @@ public class StadiumDao {
                         resultSet.getTimestamp("account_created_at")));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return stadiumList;
 

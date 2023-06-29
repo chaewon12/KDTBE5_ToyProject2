@@ -16,15 +16,18 @@ public class TeamDao {
     }
 
     //팀 등록
-    public void registerTeam(int stadiumId, String name) throws SQLException {
+    public int registerTeam(int stadiumId, String name) throws SQLException {
+        int result = 0;
         String query = "insert into team_tb values(?, ?, ?, now())";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, stadiumId);
             statement.setString(2, name);
-            int result = statement.executeUpdate();
+            result = statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return 0;
         }
+        return result;
     }
 
     //전체 야구장 목록
@@ -41,7 +44,7 @@ public class TeamDao {
                         resultSet.getTimestamp("account_created_at")));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return teamList;
     }
