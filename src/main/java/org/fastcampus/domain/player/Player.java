@@ -2,7 +2,7 @@ package org.fastcampus.domain.player;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.fastcampus.dto.player.PlayerRequestDTO;
+import org.fastcampus.dto.player.PlayerReqDTO;
 
 import java.sql.Timestamp;
 
@@ -23,7 +23,7 @@ public class Player {
         this.createdAt = createdAt;
     }
 
-    public static Player fromReqDTO(PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO){
+    public static Player fromReqDTO(PlayerReqDTO.PlayerAddReqDTO playerAddReqDTO){
         return Player.builder()
                 .teamId(playerAddReqDTO.getTeamId())
                 .name(playerAddReqDTO.getName())

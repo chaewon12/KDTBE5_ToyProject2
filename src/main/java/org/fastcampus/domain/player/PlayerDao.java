@@ -9,9 +9,11 @@ import java.util.List;
 public class PlayerDao {
     private static PlayerDao playerDao;
     private Connection connection;
+
     private PlayerDao(Connection connection) {
         this.connection = connection;
     }
+
     public static PlayerDao getInstance(Connection connection){
         if(playerDao==null){
             playerDao= new PlayerDao(connection);
@@ -54,13 +56,13 @@ public class PlayerDao {
     public List<Player> selectByTeamId(int teamId){
         List<Player> playerList = new ArrayList<>();
         try{
-            String checkUNQuery = "SELECT * FROM player_tb WHERE team_id = ?";
-            try (PreparedStatement statement = connection.prepareStatement(checkUNQuery);) {
+            String query = "SELECT * FROM player_tb WHERE team_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query);) {
                 statement.setInt(1, teamId);
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
-                        Player player = fromResultSet(resultSet);
+                        Player player = toPlayer(resultSet);
                         playerList.add(player);
                     }
                 }
@@ -84,7 +86,7 @@ public class PlayerDao {
         return result;
     }
 
-    private Player fromResultSet(ResultSet resultSet) throws SQLException {
+    private Player toPlayer(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int teamId = resultSet.getInt("team_id");
         String name = resultSet.getString("name");

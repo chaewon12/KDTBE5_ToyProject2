@@ -3,7 +3,7 @@ package org.fastcampus.dto.player;
 import lombok.*;
 import org.fastcampus.domain.player.Player;
 
-public class PlayerResponseDTO {
+public class PlayerRespDTO {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
