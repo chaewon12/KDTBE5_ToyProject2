@@ -51,7 +51,7 @@ public class PlayerDao {
         return result;
     }
 
-    public List<Player> findByTeamId(int teamId){
+    public List<Player> selectByTeamId(int teamId){
         List<Player> playerList = new ArrayList<>();
         try{
             String checkUNQuery = "SELECT * FROM player_tb WHERE team_id = ?";

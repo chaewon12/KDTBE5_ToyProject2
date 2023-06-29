@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class PlayerServiceTest {
     Connection connection = DBConnection.getInstance();
     Savepoint savepoint;
@@ -42,7 +40,7 @@ class PlayerServiceTest {
                 .build();
 
         // when
-        String result = playerService.playerAdd(playerAddReqDTO);
+        String result = playerService.addPlayer(playerAddReqDTO);
 
         // then
         Assertions.assertEquals("선수등록 성공",result);
@@ -53,7 +51,7 @@ class PlayerServiceTest {
         // given
         int teamId=3;
         // when
-        List<PlayerResponseDTO.PlayerListRespDTO> playerListRespDTOList = playerService.playerList(3);
+        List<PlayerResponseDTO.PlayerListRespDTO> playerListRespDTOList = playerService.getPlayerList(3);
         // then
         playerListRespDTOList.forEach(System.out::println);
     }
