@@ -2,7 +2,7 @@ package org.fastcampus.util;
 
 import org.fastcampus.db.DBConnection;
 import org.fastcampus.domain.player.PlayerDao;
-import org.fastcampus.dto.player.PlayerRequestDTO;
+import org.fastcampus.dto.player.PlayerReqDTO;
 import org.fastcampus.service.PlayerService;
 
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public class Console {
     public Console() {
         connection = DBConnection.getInstance();
         playerDao = PlayerDao.getInstance(connection);
-        playerService = new PlayerService(playerDao);
+        playerService = PlayerService.getInstance(connection);
         scanner = new Scanner(System.in);
     }
 
@@ -47,9 +47,9 @@ public class Console {
                 return;
             }
 
-            PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO = new PlayerRequestDTO.PlayerAddReqDTO(teamId, name, position);
+            PlayerReqDTO.PlayerAddReqDTO playerAddReqDTO = new PlayerReqDTO.PlayerAddReqDTO(teamId, name, position);
 
-            String result = playerService.playerAdd(playerAddReqDTO);
+            String result = playerService.addPlayer(playerAddReqDTO);
             System.out.println(result);
         } else {
             System.out.println("잘못된 명령어입니다.");

@@ -65,7 +65,7 @@ class PlayerDaoTest {
         int teamId = 1;
 
         // when
-        List<Player> playerList = playerDao.findByTeamId(teamId);
+        List<Player> playerList = playerDao.selectByTeamId(teamId);
 
         // then
         Assertions.assertEquals(8,playerList.size());
