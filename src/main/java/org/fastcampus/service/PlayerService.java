@@ -6,6 +6,7 @@ import org.fastcampus.domain.team.Team;
 import org.fastcampus.domain.team.TeamDao;
 import org.fastcampus.dto.player.PlayerReqDTO;
 import org.fastcampus.dto.player.PlayerRespDTO;
+import org.fastcampus.dto.team.TeamRespDTO;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class PlayerService {
     }
 
     public List<PlayerRespDTO.positionBoardRespDTO> getPositionBoard(){
-        List<Team> teamList = teamDao.selectAllTeam();
+        List<TeamRespDTO> teamList = teamDao.selectAllTeam();
         List<PlayerRespDTO.positionBoardRespDTO> positionBoard = playerDao.selectPositionByTeam(teamList);
         return positionBoard;
     }

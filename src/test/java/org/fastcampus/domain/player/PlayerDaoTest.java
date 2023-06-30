@@ -4,6 +4,7 @@ import org.fastcampus.db.DBConnection;
 import org.fastcampus.domain.team.Team;
 import org.fastcampus.domain.team.TeamDao;
 import org.fastcampus.dto.player.PlayerRespDTO;
+import org.fastcampus.dto.team.TeamRespDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,7 +103,7 @@ class PlayerDaoTest {
     @Test
     void selectPositionByTeam() {
         // given
-        List<Team> teams = teamDao.selectAllTeam();
+        List<TeamRespDTO> teams = teamDao.selectAllTeam();
 
         // when
         List<PlayerRespDTO.positionBoardRespDTO> positionBoard = playerDao.selectPositionByTeam(teams);
