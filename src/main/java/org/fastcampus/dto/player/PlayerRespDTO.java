@@ -3,6 +3,8 @@ package org.fastcampus.dto.player;
 import lombok.*;
 import org.fastcampus.domain.player.Player;
 
+import java.util.List;
+
 public class PlayerRespDTO {
     @Getter
     @AllArgsConstructor
@@ -21,5 +23,15 @@ public class PlayerRespDTO {
                     .position(player.getPosition())
                     .build();
         }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class positionBoardRespDTO{
+        private String position;
+        private List<String> nameList;
     }
 }

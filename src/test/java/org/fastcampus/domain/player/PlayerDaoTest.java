@@ -1,6 +1,9 @@
 package org.fastcampus.domain.player;
 
 import org.fastcampus.db.DBConnection;
+import org.fastcampus.domain.team.Team;
+import org.fastcampus.domain.team.TeamDao;
+import org.fastcampus.dto.player.PlayerRespDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +18,7 @@ class PlayerDaoTest {
     Connection connection = DBConnection.getInstance();
     Savepoint savepoint;
     PlayerDao playerDao = PlayerDao.getInstance(connection);
+    TeamDao teamDao = TeamDao.getInstance(connection);
 
     @BeforeEach
     void setUp() throws SQLException {
@@ -82,6 +86,7 @@ class PlayerDaoTest {
         // then
         Assertions.assertEquals(1,result);
     }
+
     @Test
     void updateOutById_fail_test() {
         // given
@@ -95,25 +100,14 @@ class PlayerDaoTest {
     }
 
     @Test
-    void updateOutById_success_test() {
+    void selectPositionByTeam() {
         // given
-        int playerId = 27;
+        List<Team> teams = teamDao.selectAllTeam();
 
         // when
-        int result = playerDao.updateOutById(playerId);
+        List<PlayerRespDTO.positionBoardRespDTO> positionBoard = playerDao.selectPositionByTeam(teams);
 
         // then
-        Assertions.assertEquals(1,result);
-    }
-    @Test
-    void updateOutById_fail_test() {
-        // given
-        int playerId = 30;
-
-        // when
-        int result = playerDao.updateOutById(playerId);
-
-        // then
-        Assertions.assertEquals(0,result);
+        positionBoard.forEach(System.out::println);
     }
 }
