@@ -1,7 +1,7 @@
 package org.fastcampus.domain.player;
 
-import org.fastcampus.domain.team.Team;
 import org.fastcampus.dto.player.PlayerRespDTO;
+import org.fastcampus.dto.team.TeamRespDTO;
 import org.fastcampus.exception.UniqueConstraintException;
 
 import java.sql.*;
@@ -89,7 +89,7 @@ public class PlayerDao {
         return result;
     }
 
-    public List<PlayerRespDTO.positionBoardRespDTO> selectPositionByTeam(List<Team> teamList) {
+    public List<PlayerRespDTO.positionBoardRespDTO> selectPositionByTeam(List<TeamRespDTO> teamList) {
         List<PlayerRespDTO.positionBoardRespDTO> positionBoard = new ArrayList<>();
         try{
             String teamQuery = teamList.stream()
