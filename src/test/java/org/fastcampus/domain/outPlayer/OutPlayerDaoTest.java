@@ -1,6 +1,7 @@
 package org.fastcampus.domain.outPlayer;
 
 import org.fastcampus.db.DBConnection;
+import org.fastcampus.dto.outPlayer.OutPlayerRespDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.util.List;
 
 class OutPlayerDaoTest {
     Connection connection = DBConnection.getInstance();
@@ -40,5 +42,14 @@ class OutPlayerDaoTest {
 
         // then
         Assertions.assertEquals(1,result);
+    }
+
+    @Test
+    void getOutBoard_test() {
+        // given
+        // when
+        List<OutPlayerRespDTO.OutBoardRespDTO> outBoard = OutplayerDao.selectPlayerJoinOut();
+        // then
+        outBoard.forEach(System.out::println);
     }
 }

@@ -2,6 +2,8 @@ package org.fastcampus.service;
 
 import org.fastcampus.domain.player.Player;
 import org.fastcampus.domain.player.PlayerDao;
+import org.fastcampus.domain.team.Team;
+import org.fastcampus.domain.team.TeamDao;
 import org.fastcampus.dto.player.PlayerReqDTO;
 import org.fastcampus.dto.player.PlayerRespDTO;
 
@@ -12,8 +14,10 @@ import java.util.List;
 public class PlayerService {
     private static PlayerService playerService;
     private PlayerDao playerDao;
+    private TeamDao teamDao;
     private PlayerService(Connection connection) {
         this.playerDao = PlayerDao.getInstance(connection);
+        this.teamDao = TeamDao.getInstance(connection);
     }
     public static PlayerService getInstance(Connection connection){
         if(playerService==null){
@@ -37,5 +41,11 @@ public class PlayerService {
             playerListRespDTOList.add(playerRespDTO);
         }
         return playerListRespDTOList;
+    }
+
+    public List<PlayerRespDTO.positionBoardRespDTO> getPositionBoard(){
+        List<Team> teamList = teamDao.selectAllTeam();
+        List<PlayerRespDTO.positionBoardRespDTO> positionBoard = playerDao.selectPositionByTeam(teamList);
+        return positionBoard;
     }
 }

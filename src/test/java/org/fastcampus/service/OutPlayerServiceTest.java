@@ -1,7 +1,7 @@
 package org.fastcampus.service;
 
 import org.fastcampus.db.DBConnection;
-import org.fastcampus.dto.outPlayer.OutPlayerRequestDTO;
+import org.fastcampus.dto.outPlayer.OutPlayerReqDTO;
 import org.fastcampus.util.type.OutReason;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -32,14 +32,14 @@ class OutPlayerServiceTest {
     @Test
     void outPlayerAdd_success_test() {
         // given
-        OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO =
-                OutPlayerRequestDTO.OutPlayerAddReqDTO.builder()
+        OutPlayerReqDTO.OutPlayerAddReqDTO outPlayerAddReqDTO =
+                OutPlayerReqDTO.OutPlayerAddReqDTO.builder()
                         .playerId(5)
                         .outReason(OutReason.CONTRACT_EXPIRATION)
                         .build();
 
         // when
-        String result = outPlayerService.outPlayerAdd(outPlayerAddReqDTO);
+        String result = outPlayerService.addOutPlayer(outPlayerAddReqDTO);
 
         // then
         Assertions.assertEquals("선수 퇴출 등록 성공",result);
@@ -49,14 +49,14 @@ class OutPlayerServiceTest {
     @Test
     void outPlayerAdd_fail_test() {
         // given
-        OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO =
-                OutPlayerRequestDTO.OutPlayerAddReqDTO.builder()
+        OutPlayerReqDTO.OutPlayerAddReqDTO outPlayerAddReqDTO =
+                OutPlayerReqDTO.OutPlayerAddReqDTO.builder()
                         .playerId(30)   //  없는 선수
                         .outReason(OutReason.INJURY)
                         .build();
 
         // when
-        String result = outPlayerService.outPlayerAdd(outPlayerAddReqDTO);
+        String result = outPlayerService.addOutPlayer(outPlayerAddReqDTO);
 
         // then
         Assertions.assertEquals("선수 퇴출 등록 실패",result);

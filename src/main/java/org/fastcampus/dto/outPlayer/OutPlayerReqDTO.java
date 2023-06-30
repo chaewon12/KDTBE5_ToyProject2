@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.fastcampus.util.type.OutReason;
 
-public class OutPlayerRequestDTO {
+public class OutPlayerReqDTO {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor

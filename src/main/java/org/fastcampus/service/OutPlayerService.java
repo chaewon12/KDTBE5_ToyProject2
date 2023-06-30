@@ -3,9 +3,11 @@ package org.fastcampus.service;
 import org.fastcampus.domain.outPlayer.OutPlayer;
 import org.fastcampus.domain.outPlayer.OutPlayerDao;
 import org.fastcampus.domain.player.PlayerDao;
-import org.fastcampus.dto.outPlayer.OutPlayerRequestDTO;
+import org.fastcampus.dto.outPlayer.OutPlayerReqDTO;
+import org.fastcampus.dto.outPlayer.OutPlayerRespDTO;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class OutPlayerService {
     private static OutPlayerService outPlayerService;
@@ -26,8 +28,8 @@ public class OutPlayerService {
         return outPlayerService;
     }
 
-    //@Todo 정의되지 않은 이유 입력 시 예외처리(위치 정해야함. 아마 main에서?)
-    public String outPlayerAdd(OutPlayerRequestDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
+    //@Todo 정의되지 않은 이유 입력 시 예외처리(콘솔에서 OutPlayerAddReqDTO 객체 생성시)
+    public String addOutPlayer(OutPlayerReqDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
         int resultInsert = 0;
         int resultUpdate = 0;
 
@@ -60,5 +62,10 @@ public class OutPlayerService {
         }
 
         return (resultInsert == 1 && resultUpdate == 1) ? "선수 퇴출 등록 성공" : "선수 퇴출 등록 실패";
+    }
+
+    public List<OutPlayerRespDTO.OutBoardRespDTO> getOutBoard(){
+        List<OutPlayerRespDTO.OutBoardRespDTO> outBoard =  outPlayerDao.selectPlayerJoinOut();
+        return outBoard;
     }
 }
