@@ -28,7 +28,6 @@ public class OutPlayerService {
         return outPlayerService;
     }
 
-    //@Todo 정의되지 않은 이유 입력 시 예외처리(콘솔에서 OutPlayerAddReqDTO 객체 생성시)
     public String addOutPlayer(OutPlayerReqDTO.OutPlayerAddReqDTO outPlayerAddReqDTO) {
         int resultInsert = 0;
         int resultUpdate = 0;
