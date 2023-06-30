@@ -10,7 +10,6 @@ public class PlayerRespDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    @ToString
     public static class PlayerListRespDTO{
         private Integer id;
         private String name;
@@ -22,6 +21,17 @@ public class PlayerRespDTO {
                     .name(player.getName())
                     .position(player.getPosition())
                     .build();
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("--------------------------------------");
+            sb.append("\nid: ").append(id);
+            sb.append("\nname: ").append(name);
+            sb.append("\nposition: ").append(position);
+            sb.append("\n--------------------------------------");
+            return sb.toString();
         }
     }
 

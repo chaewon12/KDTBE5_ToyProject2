@@ -1,25 +1,27 @@
 package org.fastcampus.util;
 
 import org.fastcampus.db.DBConnection;
-import org.fastcampus.domain.player.PlayerDao;
-import org.fastcampus.dto.player.PlayerRequestDTO;
+import org.fastcampus.dto.player.PlayerReqDTO;
+import org.fastcampus.dto.player.PlayerRespDTO;
+import org.fastcampus.service.OutPlayerService;
 import org.fastcampus.service.PlayerService;
 
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Console {
     private Connection connection;
-    private PlayerDao playerDao;
     private PlayerService playerService;
+    private OutPlayerService outPlayerService;
     private Scanner scanner;
 
     public Console() {
         connection = DBConnection.getInstance();
-        playerDao = PlayerDao.getInstance(connection);
-        playerService = new PlayerService(playerDao);
+        playerService = PlayerService.getInstance(connection);
+        outPlayerService = OutPlayerService.getInstance(connection);
         scanner = new Scanner(System.in);
     }
 
@@ -31,31 +33,17 @@ public class Console {
 
     private void parseInput(String input) {
         String[] splitInput = input.split("\\?");
+
         String command = splitInput[0];
+        String params = splitInput[1];
+        Map<String, String> paramMap = parseParams(params);
+
         if (command.equals("선수등록")) {
-            String params = splitInput[1];
-            Map<String, String> paramMap = parseParams(params);
-            String teamIdStr = paramMap.get("teamId");
-            String name = paramMap.get("name");
-            String position = paramMap.get("position");
-
-            int teamId;
-            try {
-                teamId = Integer.parseInt(teamIdStr);
-            } catch (NumberFormatException e) {
-                System.out.println("잘못된 팀 ID입니다.");
-                return;
-            }
-
-            PlayerRequestDTO.PlayerAddReqDTO playerAddReqDTO = new PlayerRequestDTO.PlayerAddReqDTO(teamId, name, position);
-
-            String result = playerService.playerAdd(playerAddReqDTO);
-            System.out.println(result);
+            addPlayer(paramMap);
         } else {
             System.out.println("잘못된 명령어입니다.");
         }
     }
-
     private Map<String, String> parseParams(String params) {
         Map<String, String> paramMap = new HashMap<>();
         String[] paramPairs = params.split("&");
@@ -66,6 +54,43 @@ public class Console {
             paramMap.put(key, value);
         }
         return paramMap;
+    }
+
+    // 선수등록
+    private void addPlayer(Map<String, String> paramMap) {
+        String teamIdStr = paramMap.get("teamId");
+        String name = paramMap.get("name");
+        String position = paramMap.get("position");
+
+        int teamId;
+        try {
+            teamId = Integer.parseInt(teamIdStr);
+        } catch (NumberFormatException e) {
+            System.out.println("잘못된 팀 ID입니다.");
+            return;
+        }
+
+        PlayerReqDTO.PlayerAddReqDTO playerAddReqDTO = new PlayerReqDTO.PlayerAddReqDTO(teamId, name, position);
+
+        String result = playerService.addPlayer(playerAddReqDTO);
+        System.out.println(result);
+    }
+
+    // 선수목록
+    private void PlayerList(Map<String, String> paramMap) {
+        String teamIdStr = paramMap.get("teamId");
+
+        int teamId;
+        try {
+            teamId = Integer.parseInt(teamIdStr);
+        } catch (NumberFormatException e) {
+            System.out.println("잘못된 팀 ID입니다.");
+            return;
+        }
+
+
+        List<PlayerRespDTO.PlayerListRespDTO> playerList = playerService.getPlayerList(teamId);
+        playerList.forEach(System.out::println);
     }
 }
 
