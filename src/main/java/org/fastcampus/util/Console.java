@@ -133,7 +133,6 @@ public class Console {
             System.out.println("------------------------------------------------------------");
         }
 
-
     //팀등록
     private void registerTeam(Map<String, String> paramMap) {
         String stadiumIdStr = paramMap.get("stadiumId");

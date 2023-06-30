@@ -25,13 +25,12 @@ public class PlayerRespDTO {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("--------------------------------------");
-            sb.append("\nid: ").append(id);
-            sb.append("\nname: ").append(name);
-            sb.append("\nposition: ").append(position);
-            sb.append("\n--------------------------------------");
-            return sb.toString();
+            return String.format(
+                    "%2d %15s %15s",
+                    id,
+                    name,
+                    position
+            );
         }
     }
 
@@ -39,9 +38,19 @@ public class PlayerRespDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    @ToString
     public static class positionBoardRespDTO{
         private String position;
         private List<String> nameList;
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(String.format("%5s ",position));
+            nameList.forEach(name -> sb.append(String.format("%15s ",name)));
+            sb.append("\n");
+
+            return sb.toString();
+        }
     }
 }
