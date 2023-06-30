@@ -57,25 +57,30 @@ public class Console {
                 List<TeamRespDTO> teamList = teamService.selectAllTeam();
                 teamList(teamList);
             } else {
-                Map<String, String> paramMap = parseParams(splitInput[1]);
+                Map<String, String> paramMap;
                 switch (option) {
                     case STADIUM_CREATE:
                         try {
+                            paramMap = parseParams(splitInput[1]);
                             registerStadium(paramMap);
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
                         break;
                     case TEAM_CREATE:
+                        paramMap = parseParams(splitInput[1]);
                         registerTeam(paramMap);
                         break;
                     case PLAYER_CREATE:
+                        paramMap = parseParams(splitInput[1]);
                         addPlayer(paramMap);
                         break;
                     case PLAYER_LIST:
+                        paramMap = parseParams(splitInput[1]);
                         playerList(paramMap);
                         break;
                     case OUTPLAYER_CREATE:
+                        paramMap = parseParams(splitInput[1]);
                         addOutPlayer(paramMap);
                         break;
                     case OUTPLAYER_LIST:
