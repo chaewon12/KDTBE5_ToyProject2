@@ -1,5 +1,6 @@
 package org.fastcampus.service;
 
+import org.fastcampus.db.DBConnection;
 import org.fastcampus.domain.stadium.Stadium;
 import org.fastcampus.domain.stadium.StadiumDao;
 
@@ -15,9 +16,16 @@ public class StadiumService {
         this.stadiumDao = StadiumDao.getInstance(connection);
     }
 
+    public static StadiumService getInstance(Connection connection){
+        if(stadiumService == null){
+            stadiumService = new StadiumService(connection);
+        }
+        return stadiumService;
+    }
+
     public String registerStadium(String name) throws SQLException {
         int result = stadiumDao.registerStadium(name);
-        return result > 0 ? "성공" : "실패";
+        return result == 1 ? "성공" : "실패";
     }
 
     public List<Stadium> selectAllStadium() {

@@ -45,8 +45,8 @@ public class TeamDao {
     //전체 야구장 목록
     public List<TeamRespDTO> selectAllTeam() {
         List<TeamRespDTO> teamList = new ArrayList<>();
-        String query = "SELECT t.id, t.name, t.stadium_id, s.name AS stadium_name, t.created_at"
-                + "FROM team_tb t"
+        String query = "SELECT t.id, t.name, t.stadium_id, s.name AS stadium_name, t.created_at "
+                + "FROM team_tb t "
                 + "INNER JOIN stadium_tb s ON t.stadium_id = s.id";
 
         try {

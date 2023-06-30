@@ -15,9 +15,16 @@ public class TeamService {
         this.teamDao = TeamDao.getInstance(connection);
     }
 
+    public static TeamService getInstance(Connection connection){
+        if(teamservice == null){
+            teamservice = new TeamService(connection);
+        }
+        return teamservice;
+    }
+
     public String registerTeam(int stadiumId, String name) throws SQLException {
         int result = teamDao.registerTeam(stadiumId, name);
-        return result > 0 ? "성공" : "실패";
+        return result == 1 ? "성공" : "실패";
     }
 
     public List<TeamRespDTO> selectAllTeam() {
