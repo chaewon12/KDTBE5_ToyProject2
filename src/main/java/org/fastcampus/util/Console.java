@@ -136,7 +136,16 @@ public class Console {
         System.out.println("-----------------------------------------------------------------------------");
     }
 
+    // 포지션별목록
+    private void positionBoard() {
+        List<PlayerRespDTO.positionBoardRespDTO> positionBoard = playerService.getPositionBoard();
 
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.print(positionBoard.get(0));
+        System.out.println("-----------------------------------------------------------------------------");
+        positionBoard.stream().skip(1).forEach(System.out::println);
+        System.out.println("-----------------------------------------------------------------------------");
+    }
 }
 
 
