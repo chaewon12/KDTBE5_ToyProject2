@@ -18,23 +18,15 @@ public enum Option {
     PLAYER_LIST("선수목록", 1, PlayerService.class),
     OUTPLAYER_CREATE("퇴출등록", 2, OutPlayerService.class),
     OUTPLAYER_LIST("퇴출목록", 1, OutPlayerService.class),
-    POSITION_LIST("포지션별목록", 0, PlayerService.class);
+    POSITION_LIST("포지션별목록", 0, PlayerService.class),
+    EXIT("종료", -1, null);
 
     private final String option;
     private final int numParameters;
     private final Class<?> serviceClass;
 
-
     public String getOption() {
         return option;
-    }
-
-    public int getNumParameters() {
-        return numParameters;
-    }
-
-    public Class<?> getServiceClass() {
-        return serviceClass;
     }
 }
 

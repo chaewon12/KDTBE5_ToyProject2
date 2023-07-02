@@ -39,63 +39,11 @@ public class Console {
     }
 
     public void start() {
-        System.out.println("어떤 기능을 요청하시겠습니까?");
-        String input = scanner.nextLine();
-        parseInput(input);
-    }
-
-    private void parseInput(String input) {
-        String[] splitInput = input.split("\\?");
-
-        String optionStr = splitInput[0];
-        Option option = getOption(optionStr);
-        if (option != null) {
-            if (option == Option.STADIUM_LIST) {
-                List<Stadium> stadiumList = stadiumService.selectAllStadium();
-                stadiumList(stadiumList);
-            } else if (option == Option.TEAM_LIST) {
-                List<TeamRespDTO> teamList = teamService.selectAllTeam();
-                teamList(teamList);
-            } else {
-                Map<String, String> paramMap;
-                switch (option) {
-                    case STADIUM_CREATE:
-                        try {
-                            paramMap = parseParams(splitInput[1]);
-                            registerStadium(paramMap);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                    case TEAM_CREATE:
-                        paramMap = parseParams(splitInput[1]);
-                        registerTeam(paramMap);
-                        break;
-                    case PLAYER_CREATE:
-                        paramMap = parseParams(splitInput[1]);
-                        addPlayer(paramMap);
-                        break;
-                    case PLAYER_LIST:
-                        paramMap = parseParams(splitInput[1]);
-                        playerList(paramMap);
-                        break;
-                    case OUTPLAYER_CREATE:
-                        paramMap = parseParams(splitInput[1]);
-                        addOutPlayer(paramMap);
-                        break;
-                    case OUTPLAYER_LIST:
-                        outPlayerList();
-                        break;
-                    case POSITION_LIST:
-                        positionBoard();
-                        break;
-                    default:
-                        System.out.println("잘못된 옵션입니다.");
-                        break;
-                }
-            }
-        } else {
-            System.out.println("잘못된 명령어입니다.");
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("어떤 기능을 요청하시겠습니까?");
+            String input = scanner.nextLine();
+            exit = parseInput(input);
         }
     }
 
@@ -111,6 +59,60 @@ public class Console {
         return paramMap;
     }
 
+    private boolean parseInput(String input) {
+        boolean exit = false;
+        String[] splitInput = input.split("\\?");
+        String optionStr = splitInput[0];
+        Option option = getOption(optionStr);
+        Map<String, String> paramMap;
+        if (option != null) {
+            switch (option) {
+                case STADIUM_CREATE:
+                    paramMap = parseParams(splitInput[1]);
+                    registerStadium(paramMap);
+                    break;
+                case STADIUM_LIST:
+                    stadiumList();
+                    break;
+                case TEAM_LIST:
+                    teamList();
+                    break;
+                case TEAM_CREATE:
+                    paramMap = parseParams(splitInput[1]);
+                    registerTeam(paramMap);
+                    break;
+                case PLAYER_CREATE:
+                    paramMap = parseParams(splitInput[1]);
+                    addPlayer(paramMap);
+                    break;
+                case PLAYER_LIST:
+                    paramMap = parseParams(splitInput[1]);
+                    playerList(paramMap);
+                    break;
+                case OUTPLAYER_CREATE:
+                    paramMap = parseParams(splitInput[1]);
+                    addOutPlayer(paramMap);
+                    break;
+                case OUTPLAYER_LIST:
+                    outPlayerList();
+                    break;
+                case POSITION_LIST:
+                    positionBoard();
+                    break;
+               case EXIT:
+                   exit = true;
+                   break;
+                default:
+                    System.out.println("잘못된 옵션입니다.");
+                    break;
+            }
+        } else {
+            System.out.println("잘못된 명령어입니다");
+        }
+    System.out.println("종료를 원하시면 종료를 입력해주세요");
+    return exit;
+    }
+
     private Option getOption(String commandStr) {
         for (Option option : Option.values()) {
             if (option.getOption().equals(commandStr)) {
@@ -122,18 +124,23 @@ public class Console {
 
 
     //야구장등록
-    private void registerStadium(Map<String, String> paramMap) throws SQLException {
+    private void registerStadium(Map<String, String> paramMap) {
         String name = paramMap.get("name");
-        String result = stadiumService.registerStadium(name);
-        System.out.println(result);
+        try {
+            String result = stadiumService.registerStadium(name);
+            System.out.println(result);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //야구장목록
-    private void stadiumList(List<Stadium> stadiumList) {
-            System.out.printf("%2s %17s %17s%n","ID", "NAME", "CREATED AT");
+    private void stadiumList() {
+        List<Stadium> stadiumList = stadiumService.selectAllStadium();
+        System.out.printf("%2s %10s %17s%n","ID", "NAME", "CREATED AT");
             System.out.println("------------------------------------------------------------");
             for (Stadium stadium : stadiumList) {
-                System.out.printf("%2d %17s %17s%n", stadium.getId(), stadium.getName(), stadium.getCreatedAt());
+                System.out.printf("%2d %10s %17s%n", stadium.getId(), stadium.getName(), stadium.getCreatedAt());
             }
             System.out.println("------------------------------------------------------------");
         }
@@ -149,16 +156,16 @@ public class Console {
             System.out.println(result);
         } catch (NumberFormatException | SQLException e) {
             System.out.println("잘못된 입력 형식입니다.");
-            return;
         }
     }
 
     //팀목록
-    private void teamList(List<TeamRespDTO> teamList) {
-        System.out.printf("%2s %17s %17s %17s %17s%n", "ID", "NAME", "STADIUM_ID", "STADIUM_NAME", "CREATED_AT");
+    private void teamList() {
+        List<TeamRespDTO> teamList = teamService.selectAllTeam();
+        System.out.printf("%2s %10s %10s %15s %17s%n", "ID", "NAME", "STADIUM_ID", "STADIUM_NAME", "CREATED_AT");
         System.out.println("------------------------------------------------------------");
         for (TeamRespDTO team : teamList) {
-            System.out.printf("%2d %17s %17d %17s %17s%n", team.getId(), team.getName(), team.getStadiumId(), team.getStadium_name(), team.getCreatedAt());
+            System.out.printf("%2d %10s %5d %10s %25s%n", team.getId(), team.getName(), team.getStadiumId(), team.getStadium_name(), team.getCreatedAt());
         }
         System.out.println("------------------------------------------------------------");
     }
@@ -243,7 +250,6 @@ public class Console {
     // 포지션별목록
     private void positionBoard() {
         List<PlayerRespDTO.positionBoardRespDTO> positionBoard = playerService.getPositionBoard();
-
         System.out.println("-----------------------------------------------------------------------------");
         System.out.print(positionBoard.get(0));
         System.out.println("-----------------------------------------------------------------------------");
@@ -251,4 +257,3 @@ public class Console {
         System.out.println("-----------------------------------------------------------------------------");
     }
 }
-
